@@ -1,0 +1,32 @@
+.register-container {
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  padding-top: 20px;
+
+  .content-left {
+    margin-top: 50px;
+    .brand {
+      text-transform: uppercase;
+      font-size: 30px;
+      color: #1877f2;
+    }
+  }
+  .content-right {
+    .brand {
+      text-transform: uppercase;
+      font-size: 30px;
+      color: #1877f2;
+      text-align: center;
+      font-weight: 600;
+    }
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    .forgot-password {
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
