@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect } from 'react';
 import './Login.scss';
 import { useHistory } from 'react-router-dom';
@@ -8,6 +9,78 @@ const Login = () => {
     history.push('/register');
   };
   
+=======
+import React, { useEffect, useState } from 'react';
+import './Login.scss';
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { loginUser } from '../../service/userService';
+
+const Login = (props) => {
+  let history = useHistory();
+
+  const [valueLogin, setValueLogin] = useState('');
+  const [password, setPassword] = useState('');
+
+  const defaultObjValidInput = {
+    isValidValueLogin: true,
+    isValidValuePassword: true
+  };
+  const [objValueInput, setObjValidInput] = useState(defaultObjValidInput);
+
+  const handleCreateNewAccount = () => {
+    history.push('/register');
+  };
+
+  const handleLogin = async () => {
+    setObjValidInput(defaultObjValidInput);
+    if (!valueLogin) {
+      setObjValidInput({ ...defaultObjValidInput, isValidValueLogin: false });
+      toast.error('Please enter your email address or phone number');
+      return;
+    }
+
+    if (!password) {
+      setObjValidInput({
+        ...defaultObjValidInput,
+        isValidValuePassword: false
+      });
+      toast.error('Please enter your password');
+      return;
+    }
+
+    let response = await loginUser(valueLogin, password);
+
+    if (response && response.data && Number(response.data.EC === 0)) {
+      // success
+      let data = {
+        isAuthenticated: true,
+        token: 'fake token'
+      };
+      sessionStorage.setItem('account', JSON.stringify(data));
+      history.push('/users');
+      window.location.reload();
+    }
+    if (response && response.data && Number(response.data.EC !== 0)) {
+      // error
+      toast.error(response.data.EM);
+    }
+  };
+
+  const handlePressEnter = (e) => {
+    if (e.charCode === 13 && e.code === 'Enter') {
+      handleLogin();
+    }
+  };
+
+  useEffect(() => {
+    let session = sessionStorage.getItem('account');
+    if (session) {
+      history.push('/');
+    }
+  }, []);
+
+>>>>>>> master
   return (
     <div className='login-container'>
       <div className='container'>
@@ -24,6 +97,7 @@ const Login = () => {
             <div className='brand d-sm-none'>FACEBOOK</div>
             <input
               type='text'
+<<<<<<< HEAD
               className='form-control'
               placeholder='Email or phone number'
             />
@@ -33,6 +107,32 @@ const Login = () => {
               placeholder='Password'
             />
             <button className='btn btn-primary'>Login</button>
+=======
+              className={
+                objValueInput.isValidValueLogin
+                  ? 'form-control'
+                  : 'form-control is-invalid'
+              }
+              placeholder='Email address or phone number'
+              value={valueLogin}
+              onChange={(e) => setValueLogin(e.target.value)}
+            />
+            <input
+              type='password'
+              className={
+                objValueInput.isValidValuePassword
+                  ? 'form-control'
+                  : 'form-control is-invalid'
+              }
+              placeholder='Password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyPress={(e) => handlePressEnter(e)}
+            />
+            <button className='btn btn-primary' onClick={() => handleLogin()}>
+              Login
+            </button>
+>>>>>>> master
             <span className='text-center'>
               <a href='/#' className='forgot-password'>
                 Forgot your Password
