@@ -64,8 +64,7 @@ const Register = () => {
     let check = isValidInput();
 
     if (check) {
-      let response = await registerNewUser(email, phone, username, password);
-      let serverData = response.data;
+      let serverData = await registerNewUser(email, phone, username, password);
       if (Number(serverData.EC) === 0) {
         toast.success(serverData.EM);
         history.push('/login');
