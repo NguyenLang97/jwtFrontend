@@ -46,11 +46,7 @@ const Register = () => {
 
       return false;
     }
-<<<<<<< HEAD
-    if (password != confirmPassword) {
-=======
     if (password !== confirmPassword) {
->>>>>>> master
       toast.error('Password is not the same');
       setObjCheckInput({ ...defaultValidInput, isValidConfirmPassword: false });
 

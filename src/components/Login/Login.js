@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import React, { useEffect } from 'react';
-import './Login.scss';
-import { useHistory } from 'react-router-dom';
-
-const Login = () => {
-  let history = useHistory();
-  const handleCreateNewAccount = () => {
-    history.push('/register');
-  };
-  
-=======
 import React, { useEffect, useState } from 'react';
 import './Login.scss';
 import { useHistory } from 'react-router-dom';
@@ -77,10 +65,10 @@ const Login = (props) => {
     let session = sessionStorage.getItem('account');
     if (session) {
       history.push('/');
+      window.location.reload();
     }
   }, []);
 
->>>>>>> master
   return (
     <div className='login-container'>
       <div className='container'>
@@ -97,17 +85,6 @@ const Login = (props) => {
             <div className='brand d-sm-none'>FACEBOOK</div>
             <input
               type='text'
-<<<<<<< HEAD
-              className='form-control'
-              placeholder='Email or phone number'
-            />
-            <input
-              type='text'
-              className='form-control'
-              placeholder='Password'
-            />
-            <button className='btn btn-primary'>Login</button>
-=======
               className={
                 objValueInput.isValidValueLogin
                   ? 'form-control'
@@ -132,7 +109,6 @@ const Login = (props) => {
             <button className='btn btn-primary' onClick={() => handleLogin()}>
               Login
             </button>
->>>>>>> master
             <span className='text-center'>
               <a href='/#' className='forgot-password'>
                 Forgot your Password
