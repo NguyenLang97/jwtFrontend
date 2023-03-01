@@ -24,9 +24,9 @@ const Users = () => {
 
   const fetchUsers = async () => {
     let response = await fetchAllUsers(currentPage, currentLimit);
-    if (response && response.data && response.data.EC === 0) {
-      setListUser(response.data.DT.users);
-      setTotalPages(response.data.DT.totalPages);
+    if (response && response.EC === 0) {
+      setListUser(response.DT.users);
+      setTotalPages(response.DT.totalPages);
     }
   };
   useEffect(() => {
@@ -49,12 +49,12 @@ const Users = () => {
 
   const confirmDeleteUser = async () => {
     let response = await deleteUser(dataModal);
-    if (response && response.data.EC === 0) {
-      toast.success(response.data.EM);
+    if (response && response.EC === 0) {
+      toast.success(response.EM);
       await fetchUsers();
       setIsShowModalDelete(false);
     } else {
-      toast.error(response.data.EM);
+      toast.error(response.EM);
     }
   };
 
