@@ -51,10 +51,8 @@ const Login = (props) => {
         token,
         account: { groupWithRoles, email, username }
       };
-      sessionStorage.setItem('account', JSON.stringify(data));
       loginContext(data);
       history.push('/users');
-      // window.location.reload();
     }
     if (response && Number(response.EC !== 0)) {
       // error
@@ -67,14 +65,6 @@ const Login = (props) => {
       handleLogin();
     }
   };
-
-  useEffect(() => {
-    let session = sessionStorage.getItem('account');
-    if (session) {
-      history.push('/');
-      window.location.reload();
-    }
-  }, []);
 
   return (
     <div className='login-container'>
