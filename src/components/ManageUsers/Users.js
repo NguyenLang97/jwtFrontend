@@ -25,8 +25,14 @@ const Users = () => {
   const fetchUsers = async () => {
     let response = await fetchAllUsers(currentPage, currentLimit);
     if (response && response.EC === 0) {
-      setListUser(response.DT.users);
       setTotalPages(response.DT.totalPages);
+      if (response.DT.totalPages > 0 && response.DT.users.length === 0) {
+        setCurrentPage(response.DT.totalPages);
+        await fetchAllUsers(response.DT.totalPages, currentLimit);
+      }
+      if (response.DT.totalPages > 0 && response.DT.users.length > 0) {
+        setListUser(response.DT.users);
+      }
     }
   };
   useEffect(() => {
@@ -161,7 +167,7 @@ const Users = () => {
                 pageCount={totalPages}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
-                forcePage={0}
+                forcePage={+currentPage - 1}
                 previousLabel='Previous'
                 nextLabel='Next'
                 pageClassName='page-item'

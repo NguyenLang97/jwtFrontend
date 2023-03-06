@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import './NavHeader.scss';
 import { Link, NavLink, useLocation, useHistory } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
@@ -28,13 +28,17 @@ const NavHeader = () => {
     }
   };
 
-  if ((user && user.isAuthenticated === true) || location.pathname === '/') {
+  if (
+    (user && user.isAuthenticated === true) ||
+    location.pathname === '/' ||
+    location.pathname === '/about'
+  ) {
     return (
       <>
         <div className='nav-header'>
           <Navbar bg='header' expand='lg'>
             <Container>
-              <Navbar.Brand href='#home'>
+              <Navbar.Brand>
                 <img
                   src={logo}
                   width='30'

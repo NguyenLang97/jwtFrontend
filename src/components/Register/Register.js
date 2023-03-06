@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Register.scss';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { registerNewUser } from '../../service/userService';
+import { UserContext } from '../../context/UserContext';
 
 const Register = () => {
+  const { user, loginContext } = React.useContext(UserContext);
   let history = useHistory();
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -73,6 +75,12 @@ const Register = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (user && user.isAuthenticated) {
+      history.push('/');
+    }
+  }, []);
 
   return (
     <div className='register-container'>

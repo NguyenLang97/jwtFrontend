@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Login.scss';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { loginUser } from '../../service/userService';
 import { UserContext } from '../../context/UserContext';
+
 const Login = (props) => {
-  const { loginContext } = React.useContext(UserContext);
+  const { user, loginContext } = React.useContext(UserContext);
   let history = useHistory();
 
   const [valueLogin, setValueLogin] = useState('');
@@ -67,6 +68,12 @@ const Login = (props) => {
     }
   };
 
+  useEffect(() => {
+    if (user && user.isAuthenticated) {
+      history.push('/');
+    }
+  }, []);
+  
   return (
     <div className='login-container'>
       <div className='container'>
@@ -80,7 +87,11 @@ const Login = (props) => {
             </div>
           </div>
           <div className='content-right col-sm-5 col-12 d-flex flex-column gap-3 py-3'>
-            <div className='brand d-sm-none'>FACEBOOK</div>
+            <div className='brand d-sm-none'>
+              <Link to='/' title='Return to HomePage'>
+                <span>FACEBOOK</span>
+              </Link>
+            </div>
             <input
               type='text'
               className={
@@ -120,6 +131,12 @@ const Login = (props) => {
               >
                 Create new account
               </button>
+              <div className='mt-3 return'>
+                <Link to='/'>
+                  <i className='fa fa-arrow-circle-left'></i>
+                  <span title='Return to HomePage'>Return to HomePage</span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

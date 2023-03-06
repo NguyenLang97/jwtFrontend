@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { getUserAccount } from '../service/userService';
-import { useLocation } from 'react-router-dom';
 
 const UserContext = React.createContext(null);
 const UserProvider = ({ children }) => {
@@ -45,14 +44,15 @@ const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (
-      window.location.pathname !== '/' &&
-      window.location.pathname !== '/login'
-    ) {
-      fetchUser();
-    } else {
-      setUser({ ...user, isLoading: false });
-    }
+    // if (
+    //   window.location.pathname !== '/' &&
+    //   window.location.pathname !== '/login'
+    // ) {
+    // fetchUser();
+    // } else {
+    //   setUser({ ...user, isLoading: false });
+    // }
+    fetchUser();
   }, []);
 
   return (
