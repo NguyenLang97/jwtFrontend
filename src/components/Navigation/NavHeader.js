@@ -16,9 +16,9 @@ const NavHeader = () => {
   const location = useLocation();
 
   const hangleLogout = async () => {
-    let data = await logoutUser();//clear cookie
-    logoutContext();//clear local storage
-    localStorage.removeItem('jwt');//clear user in context
+    let data = await logoutUser(); //clear cookie
+    logoutContext(); //clear local storage
+    localStorage.removeItem('jwt'); //clear user in context
     if (data && +data.EC === 0) {
       toast.success('Logout cuccess');
 
@@ -51,6 +51,9 @@ const NavHeader = () => {
                   </NavLink>
                   <NavLink to='/users' className='nav-link'>
                     Users
+                  </NavLink>
+                  <NavLink to='/roles' className='nav-link'>
+                    Roles
                   </NavLink>
                   <NavLink to='/projects' className='nav-link'>
                     Projects
