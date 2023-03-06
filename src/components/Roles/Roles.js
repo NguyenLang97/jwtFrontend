@@ -1,11 +1,13 @@
 import _ from 'lodash';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import './Roles.scss';
 import { v4 as uuidv4 } from 'uuid';
 import { toast } from 'react-toastify';
 import { createRoles } from '../../service/roleService';
+import TableRole from './TableTole';
 
 const Roles = () => {
+  const childRef = useRef();
   const dataChildsDefault = { url: '', description: '', isValidUrl: true };
 
   const [listChilds, setListChilds] = useState({
@@ -54,6 +56,7 @@ const Roles = () => {
       let res = await createRoles(data);
       if (res && res.EC === 0) {
         toast.success(res.EM);
+        childRef.current.fetchListRoles();
       }
     } else {
       toast.error('Input URL must not be empty...');
@@ -66,7 +69,7 @@ const Roles = () => {
   return (
     <div className='role-container'>
       <div className='container'>
-        <div className='mt-3'>
+        <div className='adding-roles mt-3'>
           <div className='title-role'>
             <h4>Add a new role...</h4>
           </div>
@@ -124,6 +127,11 @@ const Roles = () => {
               </button>
             </div>
           </div>
+        </div>
+        <hr />
+        <div className='mt-3 table-role'>
+          <h4>List Current Roles:</h4>
+          <TableRole ref={childRef} />
         </div>
       </div>
     </div>
